@@ -1,0 +1,85 @@
+
+name: Quality Checks
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  repository-checks:
+    name: Repository Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify project structure
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          for directory in \
+            frontend \
+            backend \
+            ml/src \
+            ml/tests \
+            infrastructure/docker \
+            infrastructure/caddy \
+            docs
+          do
+            if [ ! -d "$directory" ]; then
+              echo "Missing directory: $directory"
+              exit 1
+            fi
+          done
+
+          echo "Repository structure verified."
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Check Python syntax
+        shell: bash
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          roots = [Path("backend"), Path("ml")]
+          files = [
+              path
+              for root in roots
+              for path in root.rglob("*.py")
+          ]
+
+          for path in files:
+              ast.parse(
+                  path.read_text(encoding="utf-8"),
+                  filename=str(path)
+              )
+
+          print(f"Python syntax verified: {len(files)} files")
+          PY
+
+  secret-scan:
+    name: Secret Scan
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Scan Git history for secrets
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
