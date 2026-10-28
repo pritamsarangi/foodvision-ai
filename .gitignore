@@ -28,6 +28,9 @@ artifacts/
 *.ckpt
 *.tfrecord
 
+# Generated dataset reports
+ml/reports/
+
 # IDE and OS
 .idea/
 .vscode/
