@@ -1,0 +1,134 @@
+{
+  "total_classes": 270,
+  "total_images": 225437,
+  "minimum_images_per_class": 65,
+  "maximum_images_per_class": 3034,
+  "mean_images_per_class": 834.95,
+  "median_images_per_class": 1000.0,
+  "classes_below_100": 12,
+  "classes_below_500": 53,
+  "top_15_classes": [
+    [
+      "pizza",
+      3034
+    ],
+    [
+      "tomato",
+      2393
+    ],
+    [
+      "sushi",
+      2215
+    ],
+    [
+      "garlic_bread",
+      2056
+    ],
+    [
+      "spaghetti_bolognese",
+      1858
+    ],
+    [
+      "cucumber",
+      1842
+    ],
+    [
+      "ice_cream",
+      1755
+    ],
+    [
+      "apple",
+      1690
+    ],
+    [
+      "omelette",
+      1686
+    ],
+    [
+      "tiramisu",
+      1642
+    ],
+    [
+      "broccoli",
+      1618
+    ],
+    [
+      "french_fries",
+      1588
+    ],
+    [
+      "apricot",
+      1541
+    ],
+    [
+      "grape",
+      1529
+    ],
+    [
+      "mango",
+      1518
+    ]
+  ],
+  "bottom_15_classes": [
+    [
+      "porridge",
+      110
+    ],
+    [
+      "bagel",
+      104
+    ],
+    [
+      "bacon",
+      103
+    ],
+    [
+      "lettuce",
+      92
+    ],
+    [
+      "spinach",
+      90
+    ],
+    [
+      "garlic",
+      87
+    ],
+    [
+      "chilli_pepper",
+      86
+    ],
+    [
+      "cabbage",
+      82
+    ],
+    [
+      "Danish_Pastry",
+      81
+    ],
+    [
+      "salami",
+      80
+    ],
+    [
+      "beet",
+      78
+    ],
+    [
+      "radish",
+      77
+    ],
+    [
+      "chicken_schnitzel",
+      75
+    ],
+    [
+      "boiled_chicken",
+      74
+    ],
+    [
+      "ginger",
+      65
+    ]
+  ]
+}
