@@ -49,25 +49,16 @@ jobs:
       - name: Check Python syntax
         shell: bash
         run: |
-          python - <<'PY'
-          import ast
-          from pathlib import Path
+          python -m compileall -q backend ml
+          echo "Python syntax verified."
 
-          roots = [Path("backend"), Path("ml")]
-          files = [
-              path
-              for root in roots
-              for path in root.rglob("*.py")
-          ]
+      - name: Install dataset test dependencies
+        run: |
+          python -m pip install pytest Pillow
 
-          for path in files:
-              ast.parse(
-                  path.read_text(encoding="utf-8"),
-                  filename=str(path)
-              )
-
-          print(f"Python syntax verified: {len(files)} files")
-          PY
+      - name: Run dataset unit tests
+        run: |
+          python -m pytest ml/tests -v
 
   secret-scan:
     name: Secret Scan
