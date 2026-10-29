@@ -21,7 +21,9 @@ coverage/
 
 # Machine learning
 ml/data/
+.ipynb_checkpoints/
 ml/experiments/
+ml/reports/
 artifacts/
 *.h5
 *.keras
