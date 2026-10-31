@@ -115,17 +115,17 @@ def main():
     parser.add_argument(
         "--report-path",
         type=Path,
-        default=Path("ml/reports/dataset_summary.json"),
+        default=Path("ml/data/dataset_summary.json"),
     )
     parser.add_argument(
         "--manifest-path",
         type=Path,
-        default=Path("ml/reports/clean_manifest.csv"),
+        default=Path("ml/data/clean_manifest.csv"),
     )
     parser.add_argument(
         "--splits-dir",
         type=Path,
-        default=Path("ml/reports/splits"),
+        default=Path("ml/data/splits"),
     )
 
     args = parser.parse_args()

@@ -1,0 +1,1363 @@
+{
+  "seed": 42,
+  "train_ratio": 0.7,
+  "val_ratio": 0.15,
+  "test_ratio": 0.15000000000000005,
+  "total_classes": 270,
+  "total_images": 225437,
+  "train_images": 157800,
+  "val_images": 33813,
+  "test_images": 33824,
+  "per_class_counts": {
+    "Bean": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "Beef_noodle_soup": {
+      "train": 349,
+      "val": 75,
+      "test": 75
+    },
+    "Carrot": {
+      "train": 988,
+      "val": 212,
+      "test": 211
+    },
+    "Cauliflower_recipes": {
+      "train": 129,
+      "val": 28,
+      "test": 27
+    },
+    "Danish_Pastry": {
+      "train": 57,
+      "val": 12,
+      "test": 12
+    },
+    "Durian_pancake": {
+      "train": 303,
+      "val": 65,
+      "test": 65
+    },
+    "Golden_Chicken": {
+      "train": 598,
+      "val": 128,
+      "test": 129
+    },
+    "Manila_Clams": {
+      "train": 230,
+      "val": 49,
+      "test": 50
+    },
+    "Menemen": {
+      "train": 419,
+      "val": 90,
+      "test": 89
+    },
+    "Napoleon_cake": {
+      "train": 323,
+      "val": 69,
+      "test": 69
+    },
+    "Pork_Ribs": {
+      "train": 239,
+      "val": 51,
+      "test": 52
+    },
+    "Potato": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "Smoothie_Bowl": {
+      "train": 90,
+      "val": 19,
+      "test": 19
+    },
+    "Spinach_with_Rice": {
+      "train": 458,
+      "val": 98,
+      "test": 99
+    },
+    "Stuffed_Artichokes": {
+      "train": 411,
+      "val": 88,
+      "test": 88
+    },
+    "Tobiko": {
+      "train": 403,
+      "val": 86,
+      "test": 87
+    },
+    "Wagyu": {
+      "train": 364,
+      "val": 78,
+      "test": 78
+    },
+    "adana_kebab": {
+      "train": 587,
+      "val": 126,
+      "test": 125
+    },
+    "apple": {
+      "train": 1183,
+      "val": 254,
+      "test": 253
+    },
+    "apple_pie": {
+      "train": 770,
+      "val": 165,
+      "test": 165
+    },
+    "apricot": {
+      "train": 1079,
+      "val": 231,
+      "test": 231
+    },
+    "asparagus": {
+      "train": 332,
+      "val": 71,
+      "test": 72
+    },
+    "avocado": {
+      "train": 1056,
+      "val": 226,
+      "test": 227
+    },
+    "ayran": {
+      "train": 458,
+      "val": 98,
+      "test": 98
+    },
+    "baby_back_ribs": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "bacon": {
+      "train": 72,
+      "val": 15,
+      "test": 16
+    },
+    "bagel": {
+      "train": 73,
+      "val": 16,
+      "test": 15
+    },
+    "baklava": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "banana": {
+      "train": 734,
+      "val": 157,
+      "test": 157
+    },
+    "beef_carpaccio": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "beef_tartare": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "beet": {
+      "train": 55,
+      "val": 12,
+      "test": 11
+    },
+    "beet_salad": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "beignets": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "bell_pepper": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "bibimbap": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "black_olive": {
+      "train": 955,
+      "val": 205,
+      "test": 205
+    },
+    "blackberry": {
+      "train": 790,
+      "val": 169,
+      "test": 170
+    },
+    "blueberry": {
+      "train": 701,
+      "val": 150,
+      "test": 151
+    },
+    "boil_egg": {
+      "train": 135,
+      "val": 29,
+      "test": 29
+    },
+    "boiled_chicken": {
+      "train": 52,
+      "val": 11,
+      "test": 11
+    },
+    "borek_with_cheese": {
+      "train": 343,
+      "val": 74,
+      "test": 73
+    },
+    "borek_with_minced_meat": {
+      "train": 347,
+      "val": 74,
+      "test": 75
+    },
+    "bread": {
+      "train": 715,
+      "val": 153,
+      "test": 153
+    },
+    "bread_pudding": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "breakfast_burrito": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "broccoli": {
+      "train": 1133,
+      "val": 243,
+      "test": 242
+    },
+    "brownie": {
+      "train": 651,
+      "val": 140,
+      "test": 139
+    },
+    "bruschetta": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "brussels_sprouts": {
+      "train": 380,
+      "val": 81,
+      "test": 82
+    },
+    "bulgur_pilaf": {
+      "train": 448,
+      "val": 96,
+      "test": 96
+    },
+    "cabbage": {
+      "train": 57,
+      "val": 12,
+      "test": 13
+    },
+    "cabbage_roll": {
+      "train": 397,
+      "val": 85,
+      "test": 85
+    },
+    "cacik": {
+      "train": 459,
+      "val": 98,
+      "test": 99
+    },
+    "caesar_salad": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "cannoli": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "caprese_salad": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "carrot_cake": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "cauliflower": {
+      "train": 806,
+      "val": 173,
+      "test": 173
+    },
+    "ceviche": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "cheese_plate": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "cheesecake": {
+      "train": 899,
+      "val": 193,
+      "test": 193
+    },
+    "cherry": {
+      "train": 1030,
+      "val": 221,
+      "test": 221
+    },
+    "chestnut": {
+      "train": 224,
+      "val": 48,
+      "test": 48
+    },
+    "chicken_breast": {
+      "train": 190,
+      "val": 41,
+      "test": 40
+    },
+    "chicken_burger": {
+      "train": 703,
+      "val": 151,
+      "test": 150
+    },
+    "chicken_curry": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "chicken_quesadilla": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "chicken_schnitzel": {
+      "train": 52,
+      "val": 11,
+      "test": 12
+    },
+    "chicken_shish_kebab": {
+      "train": 97,
+      "val": 21,
+      "test": 21
+    },
+    "chicken_wings": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "chickpea_dish": {
+      "train": 380,
+      "val": 81,
+      "test": 82
+    },
+    "chilli_pepper": {
+      "train": 60,
+      "val": 13,
+      "test": 13
+    },
+    "chocolate_cake": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "chocolate_mousse": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "chupra": {
+      "train": 477,
+      "val": 102,
+      "test": 102
+    },
+    "churros": {
+      "train": 699,
+      "val": 150,
+      "test": 150
+    },
+    "cig_kofte": {
+      "train": 479,
+      "val": 103,
+      "test": 103
+    },
+    "clam_chowder": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "club_sandwich": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "coconut": {
+      "train": 716,
+      "val": 153,
+      "test": 154
+    },
+    "corn": {
+      "train": 247,
+      "val": 53,
+      "test": 53
+    },
+    "crab_cakes": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "creme_brulee": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "croissant": {
+      "train": 80,
+      "val": 17,
+      "test": 17
+    },
+    "croque_madame": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "cucumber": {
+      "train": 1289,
+      "val": 276,
+      "test": 277
+    },
+    "cup_cakes": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "dallas_stake": {
+      "train": 281,
+      "val": 60,
+      "test": 60
+    },
+    "dates": {
+      "train": 701,
+      "val": 150,
+      "test": 151
+    },
+    "deviled_eggs": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "doner": {
+      "train": 427,
+      "val": 92,
+      "test": 91
+    },
+    "donuts": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "dragon_fruit": {
+      "train": 724,
+      "val": 155,
+      "test": 156
+    },
+    "dumplings": {
+      "train": 1042,
+      "val": 223,
+      "test": 223
+    },
+    "edamame": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "eggplant": {
+      "train": 708,
+      "val": 152,
+      "test": 152
+    },
+    "eggplant_kebab": {
+      "train": 346,
+      "val": 74,
+      "test": 74
+    },
+    "eggs_benedict": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "eggs_with_sausage": {
+      "train": 447,
+      "val": 96,
+      "test": 95
+    },
+    "escargots": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "falafel": {
+      "train": 760,
+      "val": 163,
+      "test": 162
+    },
+    "fig": {
+      "train": 935,
+      "val": 200,
+      "test": 201
+    },
+    "filet_mignon": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "fish_and_chips": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "foie_gras": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "french_fries": {
+      "train": 1112,
+      "val": 238,
+      "test": 238
+    },
+    "french_onion_soup": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "french_toast": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "fried_calamari": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "fried_chicken": {
+      "train": 476,
+      "val": 102,
+      "test": 102
+    },
+    "fried_cornbreaded_anchovies": {
+      "train": 476,
+      "val": 102,
+      "test": 102
+    },
+    "fried_mussels": {
+      "train": 274,
+      "val": 59,
+      "test": 58
+    },
+    "fried_rice": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "frozen_yogurt": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "garlic": {
+      "train": 61,
+      "val": 13,
+      "test": 13
+    },
+    "garlic_bread": {
+      "train": 1439,
+      "val": 308,
+      "test": 309
+    },
+    "ginger": {
+      "train": 46,
+      "val": 10,
+      "test": 9
+    },
+    "gnocchi": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "grape": {
+      "train": 1070,
+      "val": 229,
+      "test": 230
+    },
+    "grapefruit": {
+      "train": 707,
+      "val": 152,
+      "test": 151
+    },
+    "greek_salad": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "greek_yogurt_Pasta": {
+      "train": 402,
+      "val": 86,
+      "test": 87
+    },
+    "green_olive": {
+      "train": 436,
+      "val": 93,
+      "test": 94
+    },
+    "green_runner_beans": {
+      "train": 459,
+      "val": 98,
+      "test": 99
+    },
+    "grilled_cheese_sandwich": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "grilled_salmon": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "guacamole": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "gyoza": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "hamburger": {
+      "train": 699,
+      "val": 150,
+      "test": 150
+    },
+    "hot_and_sour_soup": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "hot_dog": {
+      "train": 767,
+      "val": 164,
+      "test": 165
+    },
+    "huevos_rancheros": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "hummus": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "hunkar_begendi": {
+      "train": 347,
+      "val": 74,
+      "test": 75
+    },
+    "ice_cream": {
+      "train": 1228,
+      "val": 263,
+      "test": 264
+    },
+    "iskender_kebab": {
+      "train": 440,
+      "val": 94,
+      "test": 95
+    },
+    "jalapeno": {
+      "train": 708,
+      "val": 152,
+      "test": 152
+    },
+    "kalburabasti": {
+      "train": 402,
+      "val": 86,
+      "test": 87
+    },
+    "karniyarik": {
+      "train": 433,
+      "val": 93,
+      "test": 93
+    },
+    "kazandibi": {
+      "train": 365,
+      "val": 78,
+      "test": 79
+    },
+    "kemalpasa_dessert": {
+      "train": 342,
+      "val": 73,
+      "test": 74
+    },
+    "kibbeh": {
+      "train": 477,
+      "val": 102,
+      "test": 102
+    },
+    "kidney_bean_dish": {
+      "train": 416,
+      "val": 89,
+      "test": 89
+    },
+    "kisir": {
+      "train": 433,
+      "val": 93,
+      "test": 93
+    },
+    "kiwi": {
+      "train": 946,
+      "val": 203,
+      "test": 202
+    },
+    "kokorec": {
+      "train": 370,
+      "val": 79,
+      "test": 79
+    },
+    "lahmacun": {
+      "train": 463,
+      "val": 99,
+      "test": 99
+    },
+    "lamb_chops": {
+      "train": 327,
+      "val": 70,
+      "test": 70
+    },
+    "lasagna": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "lemon": {
+      "train": 708,
+      "val": 152,
+      "test": 151
+    },
+    "lentil_balls": {
+      "train": 445,
+      "val": 95,
+      "test": 96
+    },
+    "lentil_dish": {
+      "train": 418,
+      "val": 90,
+      "test": 89
+    },
+    "lentil_soup": {
+      "train": 405,
+      "val": 87,
+      "test": 87
+    },
+    "lettuce": {
+      "train": 64,
+      "val": 14,
+      "test": 14
+    },
+    "lobster_bisque": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "lobster_roll_sandwich": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "lokma_dessert": {
+      "train": 354,
+      "val": 76,
+      "test": 76
+    },
+    "macaroni_and_cheese": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "macarons": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "mandarine": {
+      "train": 702,
+      "val": 150,
+      "test": 151
+    },
+    "mango": {
+      "train": 1063,
+      "val": 228,
+      "test": 227
+    },
+    "manti": {
+      "train": 419,
+      "val": 90,
+      "test": 89
+    },
+    "mashed_potatoes": {
+      "train": 423,
+      "val": 91,
+      "test": 90
+    },
+    "meatball": {
+      "train": 550,
+      "val": 118,
+      "test": 118
+    },
+    "melon": {
+      "train": 1046,
+      "val": 224,
+      "test": 225
+    },
+    "minced_meat_pita": {
+      "train": 391,
+      "val": 84,
+      "test": 83
+    },
+    "miso_soup": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "muffin": {
+      "train": 78,
+      "val": 17,
+      "test": 17
+    },
+    "mushroom": {
+      "train": 994,
+      "val": 213,
+      "test": 213
+    },
+    "mussels": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "nachos": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "okra_stew": {
+      "train": 487,
+      "val": 104,
+      "test": 105
+    },
+    "omelette": {
+      "train": 1180,
+      "val": 253,
+      "test": 253
+    },
+    "onion": {
+      "train": 153,
+      "val": 33,
+      "test": 33
+    },
+    "onion_rings": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "orange": {
+      "train": 884,
+      "val": 189,
+      "test": 190
+    },
+    "oysters": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "pad_thai": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "paella": {
+      "train": 699,
+      "val": 150,
+      "test": 150
+    },
+    "pancakes": {
+      "train": 773,
+      "val": 166,
+      "test": 165
+    },
+    "panna_cotta": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "passion_fruit": {
+      "train": 720,
+      "val": 154,
+      "test": 154
+    },
+    "pasta": {
+      "train": 99,
+      "val": 21,
+      "test": 21
+    },
+    "pea_meal": {
+      "train": 406,
+      "val": 87,
+      "test": 87
+    },
+    "peach": {
+      "train": 477,
+      "val": 102,
+      "test": 102
+    },
+    "peanut": {
+      "train": 605,
+      "val": 130,
+      "test": 129
+    },
+    "pear": {
+      "train": 997,
+      "val": 214,
+      "test": 213
+    },
+    "peas": {
+      "train": 1048,
+      "val": 225,
+      "test": 224
+    },
+    "peking_duck": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "pepper": {
+      "train": 420,
+      "val": 90,
+      "test": 90
+    },
+    "perch": {
+      "train": 308,
+      "val": 66,
+      "test": 66
+    },
+    "pho": {
+      "train": 699,
+      "val": 150,
+      "test": 149
+    },
+    "pickle": {
+      "train": 447,
+      "val": 96,
+      "test": 95
+    },
+    "pineapple": {
+      "train": 790,
+      "val": 169,
+      "test": 170
+    },
+    "pizza": {
+      "train": 2124,
+      "val": 455,
+      "test": 455
+    },
+    "plum": {
+      "train": 297,
+      "val": 64,
+      "test": 63
+    },
+    "pomegranate": {
+      "train": 951,
+      "val": 204,
+      "test": 203
+    },
+    "pork_chop": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "porridge": {
+      "train": 77,
+      "val": 16,
+      "test": 17
+    },
+    "pot_kebab": {
+      "train": 402,
+      "val": 86,
+      "test": 86
+    },
+    "potato_dish": {
+      "train": 441,
+      "val": 94,
+      "test": 95
+    },
+    "potato_salad": {
+      "train": 420,
+      "val": 90,
+      "test": 90
+    },
+    "poutine": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "prime_rib": {
+      "train": 699,
+      "val": 150,
+      "test": 150
+    },
+    "pulled_pork_sandwich": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "pumpkin": {
+      "train": 332,
+      "val": 71,
+      "test": 72
+    },
+    "quince": {
+      "train": 736,
+      "val": 158,
+      "test": 158
+    },
+    "radish": {
+      "train": 54,
+      "val": 12,
+      "test": 11
+    },
+    "ramen": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "raspberry": {
+      "train": 708,
+      "val": 152,
+      "test": 152
+    },
+    "ravioli": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "red_velvet_cake": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "rice": {
+      "train": 394,
+      "val": 84,
+      "test": 85
+    },
+    "risotto": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "roast_chicken": {
+      "train": 128,
+      "val": 27,
+      "test": 28
+    },
+    "sahlep": {
+      "train": 326,
+      "val": 70,
+      "test": 70
+    },
+    "salami": {
+      "train": 56,
+      "val": 12,
+      "test": 12
+    },
+    "salmon_fillet": {
+      "train": 398,
+      "val": 85,
+      "test": 85
+    },
+    "samosa": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "sandwich": {
+      "train": 768,
+      "val": 165,
+      "test": 164
+    },
+    "sashimi": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "sausage": {
+      "train": 631,
+      "val": 135,
+      "test": 136
+    },
+    "sauteed_meat": {
+      "train": 407,
+      "val": 87,
+      "test": 87
+    },
+    "saute\u0301ed_chicken": {
+      "train": 404,
+      "val": 87,
+      "test": 86
+    },
+    "scallops": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "seaweed_salad": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "sehriye_soup": {
+      "train": 433,
+      "val": 93,
+      "test": 92
+    },
+    "shepherd_salad": {
+      "train": 456,
+      "val": 98,
+      "test": 98
+    },
+    "shrimp_and_grits": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "spaghetti_bolognese": {
+      "train": 1301,
+      "val": 279,
+      "test": 278
+    },
+    "spaghetti_carbonara": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "spinach": {
+      "train": 63,
+      "val": 14,
+      "test": 13
+    },
+    "spring_rolls": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "steak": {
+      "train": 699,
+      "val": 150,
+      "test": 150
+    },
+    "strawberry": {
+      "train": 1049,
+      "val": 225,
+      "test": 225
+    },
+    "strawberry_shortcake": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "stuffed_grape_leaves": {
+      "train": 153,
+      "val": 33,
+      "test": 33
+    },
+    "stuffed_mumbar": {
+      "train": 356,
+      "val": 76,
+      "test": 76
+    },
+    "stuffed_mussels": {
+      "train": 361,
+      "val": 77,
+      "test": 78
+    },
+    "stuffed_peppers": {
+      "train": 477,
+      "val": 102,
+      "test": 102
+    },
+    "stuffed_vine": {
+      "train": 484,
+      "val": 104,
+      "test": 103
+    },
+    "stuffed_zucchini": {
+      "train": 144,
+      "val": 31,
+      "test": 31
+    },
+    "su_boregi": {
+      "train": 466,
+      "val": 100,
+      "test": 100
+    },
+    "suffle": {
+      "train": 214,
+      "val": 46,
+      "test": 45
+    },
+    "sunny_side_up_eggs": {
+      "train": 150,
+      "val": 32,
+      "test": 32
+    },
+    "sushi": {
+      "train": 1550,
+      "val": 332,
+      "test": 333
+    },
+    "sutlac": {
+      "train": 444,
+      "val": 95,
+      "test": 95
+    },
+    "sweet_potato": {
+      "train": 94,
+      "val": 20,
+      "test": 21
+    },
+    "tacos": {
+      "train": 827,
+      "val": 177,
+      "test": 178
+    },
+    "takoyaki": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "tangerine": {
+      "train": 520,
+      "val": 111,
+      "test": 112
+    },
+    "tantuni": {
+      "train": 392,
+      "val": 84,
+      "test": 84
+    },
+    "tarhana_soup": {
+      "train": 397,
+      "val": 85,
+      "test": 85
+    },
+    "tea": {
+      "train": 518,
+      "val": 111,
+      "test": 111
+    },
+    "tempura_shrimp": {
+      "train": 238,
+      "val": 51,
+      "test": 51
+    },
+    "tiramisu": {
+      "train": 1149,
+      "val": 246,
+      "test": 247
+    },
+    "toast": {
+      "train": 137,
+      "val": 29,
+      "test": 30
+    },
+    "tomato": {
+      "train": 1675,
+      "val": 359,
+      "test": 359
+    },
+    "tomato_soup": {
+      "train": 476,
+      "val": 102,
+      "test": 102
+    },
+    "tulumba_dessert": {
+      "train": 456,
+      "val": 98,
+      "test": 98
+    },
+    "tuna_tartare": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "turkish_coffee": {
+      "train": 449,
+      "val": 96,
+      "test": 96
+    },
+    "waffles": {
+      "train": 700,
+      "val": 150,
+      "test": 150
+    },
+    "watermelon": {
+      "train": 944,
+      "val": 202,
+      "test": 202
+    },
+    "white_bean_stew": {
+      "train": 446,
+      "val": 96,
+      "test": 95
+    },
+    "yoghurt_soup": {
+      "train": 435,
+      "val": 93,
+      "test": 93
+    },
+    "yogurt": {
+      "train": 451,
+      "val": 97,
+      "test": 97
+    },
+    "zucchini": {
+      "train": 706,
+      "val": 151,
+      "test": 152
+    },
+    "zucchini_hash_browns": {
+      "train": 342,
+      "val": 73,
+      "test": 73
+    }
+  }
+}

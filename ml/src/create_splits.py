@@ -178,13 +178,13 @@ def main():
     parser.add_argument(
         "--manifest-path",
         type=Path,
-        default=Path("ml/reports/clean_manifest.csv"),
+        default=Path("ml/data/clean_manifest.csv"),
     )
 
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("ml/reports/splits"),
+        default=Path("ml/data/splits"),
     )
 
     args = parser.parse_args()
