@@ -4,7 +4,7 @@ from pathlib import Path
 from collections import Counter
 
 
-REPORT_PATH = Path("ml/reports/dataset_summary.json")
+REPORT_PATH = Path("ml/data/dataset_summary.json")
 
 
 def main():

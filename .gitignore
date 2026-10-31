@@ -19,16 +19,45 @@ __pycache__/
 build/
 coverage/
 
+
 # Machine learning
-ml/data/
-.ipynb_checkpoints/
-ml/experiments/
-ml/reports/
-artifacts/
+
+# Ignore raw and local datasets
+ml/data/*
+!ml/data/splits/
+
+# Ignore large generated manifests and reports
+ml/data/clean_manifest.csv
+ml/data/clean_manifest_summary.json
+ml/data/dataset_summary.json
+
+# Keep reproducible split metadata
+!ml/data/splits/*.csv
+!ml/data/splits/*.json
+
+# Ignore training experiments by default
+ml/experiments/*
+!ml/experiments/efficientnet_b0/
+
+# Allow only the selected checkpoint
+ml/experiments/efficientnet_b0/*
+!ml/experiments/efficientnet_b0/best_finetuned_weights.h5
+
+# Ignore other model files
 *.h5
 *.keras
 *.ckpt
 *.tfrecord
+
+# Explicitly include our production checkpoint
+!ml/experiments/efficientnet_b0/best_finetuned_weights.h5
+
+# Generated reports and backup
+ml/reports/
+ml/reports_backup/
+ml/figures/
+.ipynb_checkpoints/
+
 
 # Generated dataset reports
 ml/reports/

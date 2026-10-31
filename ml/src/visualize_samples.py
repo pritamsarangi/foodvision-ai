@@ -95,14 +95,14 @@ def main():
     parser.add_argument(
         "--manifest-path",
         type=Path,
-        default=Path("ml/reports/clean_manifest.csv"),
+        default=Path("ml/data/clean_manifest.csv"),
     )
 
     parser.add_argument(
         "--output-path",
         type=Path,
         default=Path(
-            "ml/reports/figures/sample_gallery.png"
+            "ml/figures/sample_gallery.png"
         ),
     )
 

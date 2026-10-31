@@ -114,13 +114,13 @@ def main():
     parser.add_argument(
         "--summary-path",
         type=Path,
-        default=Path("ml/reports/clean_manifest_summary.json"),
+        default=Path("ml/data/clean_manifest_summary.json"),
     )
 
     parser.add_argument(
         "--output-dir",
         type=Path,
-        default=Path("ml/reports/figures"),
+        default=Path("ml/figures"),
     )
 
     args = parser.parse_args()

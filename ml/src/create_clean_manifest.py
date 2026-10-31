@@ -127,7 +127,7 @@ def main():
     parser.add_argument(
         "--report-path",
         type=Path,
-        default=Path("ml/reports/dataset_summary.json"),
+        default=Path("ml/data/dataset_summary.json"),
     )
     parser.add_argument(
         "--output-dir",
