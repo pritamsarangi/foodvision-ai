@@ -6,7 +6,7 @@ from pathlib import Path
 
 import pytest
 
-from ml.src.create_splits import create_splits, load_manifest
+from ml.tests.notebook_functions import create_splits, load_manifest
 
 
 @pytest.fixture

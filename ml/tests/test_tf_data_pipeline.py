@@ -8,7 +8,7 @@ from PIL import Image, features
 # On our local tf_gpu environment, these tests will execute.
 tf = pytest.importorskip("tensorflow")
 
-from ml.src.tf_data_pipeline import build_dataset
+from ml.tests.notebook_functions import build_dataset
 
 
 @pytest.fixture
