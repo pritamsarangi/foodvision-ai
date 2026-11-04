@@ -4,7 +4,7 @@ import json
 
 import pytest
 
-from ml.src.validate_splits import validate_splits
+from ml.tests.notebook_functions import validate_splits
 
 
 def prepare_inputs(tmp_path, duplicate_groups):

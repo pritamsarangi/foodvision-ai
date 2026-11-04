@@ -5,11 +5,7 @@ import shutil
 import pytest
 from PIL import Image
 
-from ml.src.inspect_dataset import (
-    inspect_dataset,
-    save_reports,
-)
-from ml.src.create_clean_manifest import create_manifest
+from ml.tests.notebook_functions import inspect_dataset, save_reports, create_manifest
 
 
 @pytest.fixture
