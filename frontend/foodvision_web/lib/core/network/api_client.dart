@@ -1,8 +1,11 @@
-
 import 'package:dio/dio.dart';
 
 class ApiClient {
-  static const String baseUrl = 'http://127.0.0.1:8000';
+  // Injects the URL at build time via --dart-define, defaults to local backend
+  static const String baseUrl = String.fromEnvironment(
+    'API_BASE_URL',
+    defaultValue: 'http://127.0.0.1:8000',
+  );
 
   final Dio dio = Dio(
     BaseOptions(
