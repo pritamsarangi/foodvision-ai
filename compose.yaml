@@ -1,0 +1,18 @@
+services:
+  api:
+    build: 
+      context: ./backend
+    container_name: foodvision_api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env
+    volumes:
+      # Mount the model weights read-only so the API can load them
+      - ./ml/experiments/efficientnet_b0:/app/ml/experiments/efficientnet_b0:ro
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3

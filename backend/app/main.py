@@ -1,3 +1,5 @@
+import os
+import json
 from fastapi import FastAPI, File, HTTPException, UploadFile
 from pydantic import BaseModel
 from typing import Optional
@@ -11,14 +13,16 @@ from sqlalchemy.exc import SQLAlchemyError
 
 app = FastAPI(title="FoodVision AI API", version="0.1.0")
 
+# Dynamically load CORS origins from environment, fallback to local dev defaults
+cors_origins_str = os.getenv(
+    "FRONTEND_CORS_ORIGINS", 
+    '["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8080", "http://127.0.0.1:8080"]'
+)
+origins = json.loads(cors_origins_str)
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:3000",
-        "http://127.0.0.1:3000",
-        "http://localhost:8080",
-        "http://127.0.0.1:8080",
-    ],
+    allow_origins=origins,
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
@@ -72,7 +76,6 @@ async def predict(file: UploadFile = File(...)):
         )
 
     # Store real prediction in Neon PostgreSQL
-    
     try:
         saved = await run_in_threadpool(
             save_prediction,
@@ -86,7 +89,6 @@ async def predict(file: UploadFile = File(...)):
             status_code=503,
             detail="Prediction storage temporarily unavailable",
         )
-
 
     return PredictionResponse(
         prediction_id=saved.id,
