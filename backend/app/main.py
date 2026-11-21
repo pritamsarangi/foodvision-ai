@@ -14,18 +14,16 @@ from sqlalchemy.exc import SQLAlchemyError
 app = FastAPI(title="FoodVision AI API", version="0.1.0")
 
 # Dynamically load CORS origins from environment, fallback to local dev defaults
-cors_origins_str = os.getenv(
-    "FRONTEND_CORS_ORIGINS", 
-    '["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8080", "http://127.0.0.1:8080"]'
-)
+default_origins = '["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8080", "http://127.0.0.1:8080"]'
+cors_origins_str = (os.getenv("FRONTEND_CORS_ORIGINS") or default_origins).strip()
 origins = json.loads(cors_origins_str)
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=False,
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type"],
+    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_headers=["*"],
 )
 
 app.include_router(predictions_router)
