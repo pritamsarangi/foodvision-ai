@@ -68,7 +68,7 @@ async def predict(file: UploadFile = File(...)):
             predict_image,
             data,
         )
-    except RuntimeError as exct:
+    except RuntimeError as exc:
         raise HTTPException(
             status_code=503,
             detail=str(exc),
