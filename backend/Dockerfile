@@ -14,11 +14,13 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/*
 
 # Install Python dependencies
-COPY requirements.txt .
+COPY backend/requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the rest of the backend application code
-COPY . .
+# Copy backend application code and required ML artifacts
+COPY backend/ .
+COPY ml/data/splits/class_to_index.json /app/ml/data/splits/class_to_index.json
+COPY ml/experiments/efficientnet_b0/best_finetuned_weights.h5 /app/ml/experiments/efficientnet_b0/best_finetuned_weights.h5
 
 # Expose port and run Uvicorn
 EXPOSE 8000
