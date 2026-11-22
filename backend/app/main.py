@@ -20,11 +20,12 @@ origins = json.loads(cors_origins_str)
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=origins if origins != ["*"] else ["*"],
     allow_credentials=False,
-    allow_methods=["GET", "POST", "OPTIONS"],
+    allow_methods=["*"],
     allow_headers=["*"],
 )
+
 
 app.include_router(predictions_router)
 MAX_IMAGE_BYTES = 10 * 1024 * 1024
@@ -66,6 +67,11 @@ async def predict(file: UploadFile = File(...)):
         top_5 = await run_in_threadpool(
             predict_image,
             data,
+        )
+    except RuntimeError as exct:
+        raise HTTPException(
+            status_code=503,
+            detail=str(exc),
         )
     except (OSError, ValueError):
         raise HTTPException(
