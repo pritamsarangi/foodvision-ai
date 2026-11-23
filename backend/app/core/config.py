@@ -61,6 +61,16 @@ class Settings(BaseModel):
     model_version: str = "efficientnet-b0-finetuned-v1"
     project_root: Path = Field(default_factory=_resolve_project_root)
 
+    # JWT & Security
+    jwt_secret_key: str = Field(
+        default_factory=lambda: os.getenv(
+            "JWT_SECRET_KEY",
+            "insecure-default-change-me-in-production-secret-key-32chars",
+        )
+    )
+    jwt_algorithm: str = "HS256"
+    access_token_expire_minutes: int = 15  # Short-lived (15 minutes)
+    refresh_token_expire_days: int = 7     # Long-lived (7 days)
 
 @lru_cache()
 def get_settings() -> Settings:

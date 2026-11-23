@@ -18,14 +18,13 @@ The platform is designed to operate within a strict **₹0 / $0 infrastructure b
 | :--- | :--- | :--- |
 | **Flutter Web UI** | Implemented | Deployed live on Cloudflare Workers Static Assets |
 | **EfficientNet-B0 Inference** | Implemented | 80.37% Top-1, 94.30% Top-5 accuracy; verified CPU inference |
-| **FastAPI Backend** | Implemented | 15/15 unit tests passing (`backend/tests/test_api.py`) |
+| **FastAPI Backend** | Implemented | 23/23 unit tests passing (`backend/tests/`) |
 | **Centralized Config** | Implemented | Validated via `backend/app/core/config.py` |
 | **Liveness & Readiness Probes** | Implemented | Tested via `/api/v1/health/live` and `/ready` |
-| **Prediction History Storage** | Implemented | Storing records in Neon PostgreSQL |
+| **Database Migrations (Alembic)**| Implemented | Managed via `backend/alembic/` (migrations applied to Neon) |
+| **User Authentication & JWT** | Implemented | Argon2id + rotating refresh tokens + reuse detection |
+| **PostgreSQL RLS** | Implemented | Defense-in-depth row isolation verified via unit tests |
 | **Caddy Reverse Proxy** | Foundation Configured | `infrastructure/caddy/Caddyfile` and `compose.yaml` |
-| **Database Migrations (Alembic)**| Planned | Phase 2 |
-| **User Authentication & JWT** | Planned | Phase 2 |
-| **PostgreSQL RLS (Row-Level Security)**| Planned | Phase 2 |
 | **Valkey Rate Limiting** | Planned | Phase 3 |
 | **Structured JSON Logging** | Planned | Phase 4 |
 | **Automated Backups & Restore Drill** | Planned | Phase 4 |

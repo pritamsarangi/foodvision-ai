@@ -1,5 +1,5 @@
 from typing import Optional
-from fastapi import FastAPI, File, HTTPException, UploadFile, status
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -11,6 +11,9 @@ from app.core.config import settings
 from app.core.database import SessionLocal
 from app.services.inference import load_model, predict_image
 from app.services.prediction_service import save_prediction
+from app.api.auth import router as auth_router
+from app.api.deps import get_optional_current_user
+from app.models.user import User
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
@@ -25,7 +28,7 @@ app.add_middleware(
 
 
 app.include_router(predictions_router)
-
+app.include_router(auth_router)
 
 # 2. Schemas
 class FoodPrediction(BaseModel):
@@ -96,7 +99,9 @@ def readiness():
 
 # 4. Predict Endpoint using centralized settings
 @app.post("/api/v1/predict", response_model=PredictionResponse)
-async def predict(file: UploadFile = File(...)):
+async def predict(file: UploadFile = File(...),
+                  current_user: Optional[User] = Depends(get_optional_current_user)
+                  ):
     if file.content_type not in settings.allowed_image_types:
         raise HTTPException(status_code=415, detail="Upload a JPEG, PNG, or WebP image")
     data = await file.read(settings.max_image_bytes + 1)
@@ -121,6 +126,7 @@ async def predict(file: UploadFile = File(...)):
             confidence=top_5[0]["confidence"],
             top_5=top_5,
             model_version=settings.model_version,
+            user_id=current_user.id if current_user else None,
         )
     except SQLAlchemyError:
         raise HTTPException(
