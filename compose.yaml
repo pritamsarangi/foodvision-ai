@@ -1,4 +1,5 @@
 services:
+  # Internal FastAPI Application
   api:
     build:
       context: ./backend
@@ -11,11 +12,13 @@ services:
       - ./ml/experiments/efficientnet_b0:/app/ml/experiments/efficientnet_b0:ro
     restart: unless-stopped
     healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health"]
-      interval: 30s
-      timeout: 10s
+      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health/live"]
+      interval: 15s
+      timeout: 5s
       retries: 3
+      start_period: 20s
 
+  # Public Edge Reverse Proxy
   caddy:
     image: caddy:2-alpine
     container_name: foodvision_caddy
@@ -23,6 +26,13 @@ services:
       - "80:80"
     volumes:
       - ./infrastructure/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
     depends_on:
-      - api
+      api:
+        condition: service_healthy
     restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
