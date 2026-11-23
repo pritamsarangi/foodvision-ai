@@ -16,7 +16,7 @@ The platform is designed to operate within a strict **₹0 / $0 infrastructure b
 
 | Capability | Current Status | Verification Method |
 | :--- | :--- | :--- |
-| **Flutter Web UI** | Implemented | Deployed live on Cloudflare Workers Static Assets |
+| **Flutter Web UI** | Implemented | Auth session, OOD confidence guardrail, Nutrition card (11/11 tests passing) |
 | **EfficientNet-B0 Inference** | Implemented | 80.37% Top-1, 94.30% Top-5 accuracy; verified CPU inference |
 | **FastAPI Backend** | Implemented | 23/23 unit tests passing (`backend/tests/`) |
 | **Centralized Config** | Implemented | Validated via `backend/app/core/config.py` |
