@@ -227,3 +227,37 @@ def test_prediction_detail_database_failure():
     assert response.json()["detail"] == (
         "Prediction history temporarily unavailable"
     )
+
+def test_liveness_probe():
+    response = client.get("/api/v1/health/live")
+    assert response.status_code == 200
+    assert response.json() == {"status": "alive"}
+
+
+def test_readiness_probe_success():
+    with patch("app.main.SessionLocal") as mock_session:
+        mock_db = MagicMock()
+        mock_session.return_value.__enter__.return_value = mock_db
+
+        with patch("pathlib.Path.exists", return_value=True):
+            response = client.get("/api/v1/health/ready")
+
+    assert response.status_code == 200
+    data = response.json()
+    assert data["status"] == "ready"
+    assert data["checks"]["database"] is True
+    assert data["checks"]["model_weights"] is True
+
+
+def test_readiness_probe_database_failure():
+    with patch("app.main.SessionLocal") as mock_session:
+        mock_db = MagicMock()
+        mock_db.execute.side_effect = OperationalError("DB connection failed", None, None)
+        mock_session.return_value.__enter__.return_value = mock_db
+
+        with patch("pathlib.Path.exists", return_value=True):
+            response = client.get("/api/v1/health/ready")
+
+    assert response.status_code == 503
+    assert response.json()["detail"]["status"] == "not_ready"
+    assert response.json()["detail"]["checks"]["database"] is False

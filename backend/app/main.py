@@ -1,38 +1,32 @@
-import os
-import json
-from fastapi import FastAPI, File, HTTPException, UploadFile
-from pydantic import BaseModel
 from typing import Optional
-from app.api.predict import router as predictions_router
+from fastapi import FastAPI, File, HTTPException, UploadFile, status
 from fastapi.concurrency import run_in_threadpool
-from app.services.inference import predict_image
-from app.services.prediction_service import save_prediction
-from app.services.inference import load_model
 from fastapi.middleware.cors import CORSMiddleware
+from pydantic import BaseModel
+from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
-app = FastAPI(title="FoodVision AI API", version="0.1.0")
+from app.api.predict import router as predictions_router
+from app.core.config import settings
+from app.core.database import SessionLocal
+from app.services.inference import load_model, predict_image
+from app.services.prediction_service import save_prediction
 
-# Dynamically load CORS origins from environment, fallback to local dev defaults
-cors_origins_str = os.getenv(
-    "FRONTEND_CORS_ORIGINS", 
-    '["http://localhost:3000", "http://127.0.0.1:3000", "http://localhost:8080", "http://127.0.0.1:8080"]'
-)
-origins = json.loads(cors_origins_str)
+app = FastAPI(title=settings.app_name, version=settings.app_version)
 
+# 1. CORS Middleware using centralized settings
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=settings.cors_origins if settings.cors_origins != ["*"] else ["*"],
     allow_credentials=False,
-    allow_methods=["GET", "POST"],
-    allow_headers=["Content-Type"],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 app.include_router(predictions_router)
-MAX_IMAGE_BYTES = 10 * 1024 * 1024
-ALLOWED_TYPES = {"image/jpeg", "image/png", "image/webp"}
 
 
+# 2. Schemas
 class FoodPrediction(BaseModel):
     food_name: str
     confidence: float
@@ -47,42 +41,85 @@ class PredictionResponse(BaseModel):
     is_mock: bool
 
 
+# 3. Health & Observability Probes
 @app.get("/api/v1/health")
 def health():
-    return {"status": "ok","model_loaded": load_model.cache_info().currsize > 0,
-            }
+    """Backward-compatible health endpoint."""
+    return {
+        "status": "ok",
+        "model_loaded": load_model.cache_info().currsize > 0,
+    }
 
 
+@app.get("/api/v1/health/live", status_code=status.HTTP_200_OK)
+def liveness():
+    """Liveness probe: verifies process is alive."""
+    return {"status": "alive"}
+
+
+@app.get("/api/v1/health/ready")
+def readiness():
+    """Readiness probe: verifies database connectivity and model availability."""
+    checks = {
+        "database": False,
+        "model_weights": False,
+        "model_cached": load_model.cache_info().currsize > 0,
+    }
+
+    # Verify DB connectivity
+    try:
+        with SessionLocal() as db:
+            db.execute(text("SELECT 1"))
+        checks["database"] = True
+    except Exception:
+        checks["database"] = False
+
+    # Verify weights file exists on disk
+    weights_path = (
+        settings.project_root
+        / "ml"
+        / "experiments"
+        / "efficientnet_b0"
+        / "best_finetuned_weights.h5"
+    )
+    checks["model_weights"] = weights_path.exists()
+
+    if not checks["database"] or not checks["model_weights"]:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail={"status": "not_ready", "checks": checks},
+        )
+
+    return {"status": "ready", "checks": checks}
+
+
+# 4. Predict Endpoint using centralized settings
 @app.post("/api/v1/predict", response_model=PredictionResponse)
 async def predict(file: UploadFile = File(...)):
-    if file.content_type not in ALLOWED_TYPES:
+    if file.content_type not in settings.allowed_image_types:
         raise HTTPException(status_code=415, detail="Upload a JPEG, PNG, or WebP image")
-    data = await file.read(MAX_IMAGE_BYTES + 1)
+    data = await file.read(settings.max_image_bytes + 1)
     if not data:
         raise HTTPException(status_code=400, detail="Image is empty")
-    if len(data) > MAX_IMAGE_BYTES:
+    if len(data) > settings.max_image_bytes:
         raise HTTPException(status_code=413, detail="Image exceeds 10 MB")
 
-    # Run real EfficientNet-B0 inference
+    # Run EfficientNet-B0 inference on threadpool
     try:
-        top_5 = await run_in_threadpool(
-            predict_image,
-            data,
-        )
+        top_5 = await run_in_threadpool(predict_image, data)
+    except RuntimeError as exc:
+        raise HTTPException(status_code=503, detail=str(exc))
     except (OSError, ValueError):
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid or unsupported image",
-        )
+        raise HTTPException(status_code=400, detail="Invalid or unsupported image")
 
-    # Store real prediction in Neon PostgreSQL
+    # Store prediction in PostgreSQL
     try:
         saved = await run_in_threadpool(
             save_prediction,
             food_name=top_5[0]["food_name"],
             confidence=top_5[0]["confidence"],
             top_5=top_5,
-            model_version="efficientnet-b0-finetuned-v1",
+            model_version=settings.model_version,
         )
     except SQLAlchemyError:
         raise HTTPException(
@@ -95,6 +132,6 @@ async def predict(file: UploadFile = File(...)):
         food_name=top_5[0]["food_name"],
         confidence=top_5[0]["confidence"],
         top_5=top_5,
-        model_version="efficientnet-b0-finetuned-v1",
+        model_version=settings.model_version,
         is_mock=False,
     )
