@@ -29,3 +29,6 @@ email-validator>=2.0.0
 
 # Rate Limiting & Cache
 redis>=5.0.0
+
+# Observability & Metrics
+prometheus-client>=0.20.0
