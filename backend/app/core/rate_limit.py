@@ -6,6 +6,7 @@ from typing import Callable, Optional
 from fastapi import Depends, HTTPException, Request, Response, status
 import redis.asyncio as redis
 from redis.exceptions import RedisError
+from app.core.telemetry import RATE_LIMIT_HITS_TOTAL
 
 from app.api.deps import get_optional_current_user
 from app.core.config import settings
@@ -139,6 +140,7 @@ async def check_rate_limit(
         current_count = int(results[1])
 
         if current_count >= limit:
+            RATE_LIMIT_HITS_TOTAL.labels(prefix=prefix).inc()
             oldest_entries = await client.zrange(key, 0, 0, withscores=True)
             if oldest_entries:
                 oldest_ts = oldest_entries[0][1]
@@ -184,6 +186,7 @@ async def check_rate_limit(
         )
 
         if not allowed:
+            RATE_LIMIT_HITS_TOTAL.labels(prefix=prefix).inc()
             retry_after = reset_or_retry
             response.headers["X-RateLimit-Limit"] = str(limit)
             response.headers["X-RateLimit-Remaining"] = "0"

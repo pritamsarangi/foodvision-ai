@@ -1,24 +1,34 @@
+import time
 from typing import Optional
-from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status
+from fastapi import Depends, FastAPI, File, HTTPException, UploadFile, status, Response
 from fastapi.concurrency import run_in_threadpool
 from fastapi.middleware.cors import CORSMiddleware
+from prometheus_client import CONTENT_TYPE_LATEST, generate_latest
 from pydantic import BaseModel
 from sqlalchemy import text
 from sqlalchemy.exc import SQLAlchemyError
 
+from app.api.auth import router as auth_router
+from app.api.deps import get_optional_current_user
 from app.api.predict import router as predictions_router
 from app.core.config import settings
 from app.core.database import SessionLocal
+from app.core.rate_limit import predict_rate_limiter
+from app.core.telemetry import (
+    ML_INFERENCE_DURATION_SECONDS,
+    PREDICTIONS_TOTAL,
+    TelemetryMiddleware,
+)
+from app.models.user import User
 from app.services.inference import load_model, predict_image
 from app.services.prediction_service import save_prediction
-from app.api.auth import router as auth_router
-from app.api.deps import get_optional_current_user
-from app.models.user import User
-from app.core.rate_limit import predict_rate_limiter
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
-# 1. CORS Middleware using centralized settings
+# 1. Telemetry & Request Tracing Middleware
+app.add_middleware(TelemetryMiddleware)
+
+# 2. CORS Middleware using centralized settings
 app.add_middleware(
     CORSMiddleware,
     allow_origins=settings.cors_origins if settings.cors_origins != ["*"] else ["*"],
@@ -45,6 +55,10 @@ class PredictionResponse(BaseModel):
     model_version: str
     is_mock: bool
 
+@app.get("/metrics", include_in_schema=False)
+def metrics():
+    """Prometheus metrics scrape target."""
+    return Response(content=generate_latest(), media_type=CONTENT_TYPE_LATEST)
 
 # 3. Health & Observability Probes
 @app.get("/api/v1/health")
@@ -114,15 +128,25 @@ async def predict(
         raise HTTPException(status_code=400, detail="Image is empty")
     if len(data) > settings.max_image_bytes:
         raise HTTPException(status_code=413, detail="Image exceeds 10 MB")
-
-    # Run EfficientNet-B0 inference on threadpool
+    
+    # Run EfficientNet-B0 inference on threadpool with latency instrumentation
+    inf_start = time.perf_counter()
     try:
         top_5 = await run_in_threadpool(predict_image, data)
     except RuntimeError as exc:
         raise HTTPException(status_code=503, detail=str(exc))
     except (OSError, ValueError):
         raise HTTPException(status_code=400, detail="Invalid or unsupported image")
+    finally:
+        inf_duration = time.perf_counter() - inf_start
+        ML_INFERENCE_DURATION_SECONDS.labels(
+            model_version=settings.model_version
+        ).observe(inf_duration)
 
+    # Track classification distribution and Out-of-Distribution (OOD) status
+    top_class = top_5[0]["food_name"]
+    is_ood = str(top_5[0]["confidence"] < 0.35)
+    PREDICTIONS_TOTAL.labels(top_food=top_class, is_ood=is_ood).inc()
     # Store prediction in PostgreSQL
     try:
         saved = await run_in_threadpool(
