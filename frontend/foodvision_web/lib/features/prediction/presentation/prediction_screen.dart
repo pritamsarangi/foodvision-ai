@@ -299,7 +299,7 @@ class PredictionScreen extends StatelessWidget {
                               ),
                               const SizedBox(height: 18),
                               const Text(
-                                '【 呪力走査 】 ENGAGE TARGET ACQUISITION',
+                                'ENGAGE TARGET ACQUISITION',
                                 style: TextStyle(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w900,
@@ -584,7 +584,7 @@ class PredictionScreen extends StatelessWidget {
                                               ),
                                             ),
                                             child: const Text(
-                                              'CLASSIFICATION RESULT // 識別成功',
+                                              'CLASSIFICATION RESULT',
                                               style: TextStyle(
                                                 color: Color(0xFF67E8F9),
                                                 fontWeight: FontWeight.w900,
