@@ -1,29 +1,11 @@
 services:
-  # Internal FastAPI Application
-  api:
-    build:
-      context: ./backend
-    container_name: foodvision_api
-    expose:
-      - "8000"
-    env_file:
-      - ./backend/.env
-    volumes:
-      - ./ml/experiments/efficientnet_b0:/app/ml/experiments/efficientnet_b0:ro
-    restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8000/api/v1/health/live"]
-      interval: 15s
-      timeout: 5s
-      retries: 3
-      start_period: 20s
-
-  # Public Edge Reverse Proxy
   caddy:
     image: caddy:2-alpine
-    container_name: foodvision_caddy
+    container_name: foodvision-caddy
+    restart: unless-stopped
     ports:
       - "80:80"
+      - "443:443"
     volumes:
       - ./infrastructure/caddy/Caddyfile:/etc/caddy/Caddyfile:ro
       - caddy_data:/data
@@ -31,8 +13,54 @@ services:
     depends_on:
       api:
         condition: service_healthy
+    networks:
+      - foodvision-net
+
+  api:
+    build:
+      context: .
+      dockerfile: backend/Dockerfile
+    container_name: foodvision-api
     restart: unless-stopped
+    expose:
+      - "8000"
+    env_file:
+      - backend/.env
+    environment:
+      - PORT=8000
+      - HOST=0.0.0.0
+      - VALKEY_URL=redis://valkey:6379/0
+    depends_on:
+      valkey:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/v1/health/live')"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
+    networks:
+      - foodvision-net
+
+  valkey:
+    image: valkey/valkey:8.0-alpine
+    container_name: foodvision-valkey
+    restart: unless-stopped
+    expose:
+      - "6379"
+    command: valkey-server --save "" --appendonly no --maxmemory 64mb --maxmemory-policy allkeys-lru
+    healthcheck:
+      test: ["CMD", "valkey-cli", "ping"]
+      interval: 5s
+      timeout: 3s
+      retries: 3
+    networks:
+      - foodvision-net
 
 volumes:
   caddy_data:
   caddy_config:
+
+networks:
+  foodvision-net:
+    driver: bridge

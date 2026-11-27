@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, status
 from sqlalchemy.orm import Session
+from app.core.rate_limit import RateLimiter
 
 from app.api.deps import get_current_user, get_db
 from app.models.user import User
@@ -19,13 +20,18 @@ router = APIRouter(prefix="/api/v1/auth", tags=["Authentication"])
     "/register",
     response_model=UserResponse,
     status_code=status.HTTP_201_CREATED,
+    dependencies=[Depends(RateLimiter(limit=3, window_seconds=3600, prefix="rl:auth:register"))],
 )
 def register(user_in: UserCreate, db: Session = Depends(get_db)):
     """Registers a new user account."""
     return auth_service.register_user(db, user_in)
 
 
-@router.post("/login", response_model=TokenResponse)
+@router.post(
+    "/login",
+    response_model=TokenResponse,
+    dependencies=[Depends(RateLimiter(limit=5, window_seconds=60, prefix="rl:auth:login"))],
+)
 def login(login_in: UserLogin, db: Session = Depends(get_db)):
     """Authenticates user and returns an access/refresh token pair."""
     user = auth_service.authenticate_user(db, login_in.email, login_in.password)

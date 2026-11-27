@@ -26,3 +26,6 @@ alembic>=1.13,<2
 argon2-cffi>=23.1.0
 pyjwt>=2.8,<3
 email-validator>=2.0.0
+
+# Rate Limiting & Cache
+redis>=5.0.0
