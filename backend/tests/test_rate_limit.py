@@ -199,6 +199,30 @@ def test_fail_open_on_valkey_outage(monkeypatch, test_client):
     assert response.status_code == 200
     assert response.json() == {"message": "ok"}
 
+def test_in_memory_fallback_enforces_quota_when_valkey_down(monkeypatch, test_client):
+    """Verifies in-memory fallback enforces rate limits even when Valkey is completely down."""
+
+    class FailingValkey:
+        def pipeline(self, transaction=True):
+            raise redis.exceptions.ConnectionError("Valkey server down")
+
+    monkeypatch.setattr("app.core.rate_limit.get_valkey_client", lambda: FailingValkey())
+
+    # First 3 requests should pass with in-memory fallback
+    for _ in range(3):
+        res = test_client.get(
+            "/test-rate-limit", headers={"X-Forwarded-For": "10.10.10.10"}
+        )
+        assert res.status_code == 200
+
+    # 4th request must be blocked by the in-memory fallback with HTTP 429!
+    breach = test_client.get(
+        "/test-rate-limit", headers={"X-Forwarded-For": "10.10.10.10"}
+    )
+    assert breach.status_code == 429
+    assert "Retry-After" in breach.headers
+    assert "Rate limit exceeded" in breach.json()["detail"]
+
 
 def test_predict_rate_limiter_guest_tier(fake_valkey, test_client):
     """Verifies guest users get a 10 request limit on predict."""
