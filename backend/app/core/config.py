@@ -72,6 +72,14 @@ class Settings(BaseModel):
     access_token_expire_minutes: int = 15  # Short-lived (15 minutes)
     refresh_token_expire_days: int = 7     # Long-lived (7 days)
 
+    # Rate Limiting & Valkey (RESP compatible)
+    valkey_url: str = Field(
+        default_factory=lambda: os.getenv(
+            "VALKEY_URL",
+            os.getenv("REDIS_URL", "redis://localhost:6379/0"),
+        )
+    )
+
 @lru_cache()
 def get_settings() -> Settings:
     """Cached settings singleton so configuration is only initialized once."""

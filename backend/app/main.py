@@ -14,6 +14,7 @@ from app.services.prediction_service import save_prediction
 from app.api.auth import router as auth_router
 from app.api.deps import get_optional_current_user
 from app.models.user import User
+from app.core.rate_limit import predict_rate_limiter
 
 app = FastAPI(title=settings.app_name, version=settings.app_version)
 
@@ -98,10 +99,14 @@ def readiness():
 
 
 # 4. Predict Endpoint using centralized settings
-@app.post("/api/v1/predict", response_model=PredictionResponse)
-async def predict(file: UploadFile = File(...),
-                  current_user: Optional[User] = Depends(get_optional_current_user)
-                  ):
+@app.post("/api/v1/predict", 
+          response_model=PredictionResponse,
+          dependencies=[Depends(predict_rate_limiter)],
+          )
+async def predict(
+    file: UploadFile = File(...),
+    current_user: Optional[User] = Depends(get_optional_current_user)
+    ):
     if file.content_type not in settings.allowed_image_types:
         raise HTTPException(status_code=415, detail="Upload a JPEG, PNG, or WebP image")
     data = await file.read(settings.max_image_bytes + 1)
