@@ -39,7 +39,7 @@ class NutritionCard extends StatelessWidget {
                   border: Border.all(color: const Color(0xFF7C3AED)),
                 ),
                 child: const Text(
-                  'ENERGY MATRIX // 属性分析',
+                  'ENERGY MATRIX',
                   style: TextStyle(
                     color: Color(0xFFC4B5FD),
                     fontSize: 10,

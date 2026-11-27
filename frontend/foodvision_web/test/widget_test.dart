@@ -23,7 +23,7 @@ void main() {
       historyRepository: histRepo,
     ));
 
-      expect(find.text('FOODVISION AI'), findsOneWidget);
-      expect(find.text('TAP ANYWHERE TO ENTER DOMAIN ➔'), findsOneWidget);
+    expect(find.text('FOODVISION AI'), findsOneWidget);
+    expect(find.text('TAP ANYWHERE TO ENTER DOMAIN ➔'), findsOneWidget);
   });
 }
